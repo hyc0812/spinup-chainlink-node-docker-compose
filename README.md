@@ -67,16 +67,16 @@ Then start again:
 docker compose up -d
 ```
 
-Useful Commands
+## Useful Commands
 
-## View logs:
+### View logs:
 
 
 ```
 docker logs -f chainlink
 ```
 
-Stop containers (keep data):
+### Stop containers (keep data):
 
 ```
 docker compose down
