@@ -56,19 +56,28 @@ Login using the email and password defined in .env.
 
 To completely remove containers and all data:
 
+```
 docker compose down -v --remove-orphans
+```
 
 Then start again:
 
+```
 docker compose up -d
+```
 
 Useful Commands
 
 ## View logs:
 
+
+```
 docker logs -f chainlink
+```
 
 Stop containers (keep data):
 
+```
 docker compose down
+```
 
