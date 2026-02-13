@@ -8,14 +8,22 @@ services:
       - "5432:5432"
     volumes:
       - cl_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 10s
 
   chainlink:
     image: smartcontract/chainlink:${CHAINLINK_IMAGE_TAG}
     platform: linux/amd64
     container_name: chainlink
-    user: "0:0"   
+    user: "0:0"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
     ports:
       - "6688:6688"
     volumes:
