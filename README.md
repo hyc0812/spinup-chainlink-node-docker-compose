@@ -34,6 +34,7 @@ Edit the following values in the .env file:
 
 
 ETH_WS_URL=
+
 ETH_HTTP_URL=
 
 
