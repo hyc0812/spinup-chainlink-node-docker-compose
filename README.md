@@ -21,7 +21,8 @@ Both commands must return version numbers.
 
 ```
 git clone <YOUR_REPO_URL>
-cd chainlink-node-lab
+cd spinup-chainlink-node-docker-compose
+
 ```
 
 ## Step 2 – Create Environment File
