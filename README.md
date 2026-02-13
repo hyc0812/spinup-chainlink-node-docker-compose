@@ -28,7 +28,7 @@ cd spinup-chainlink-node-docker-compose
 ## Step 2 – Create Environment File
 
 ```
-copy .env.example .env
+cp .env.example .env
 ```
 
 
