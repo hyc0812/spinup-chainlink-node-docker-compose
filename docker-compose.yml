@@ -1,0 +1,69 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: cl-postgres
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - cl_pg:/var/lib/postgresql/data
+
+  chainlink:
+    image: smartcontract/chainlink:${CHAINLINK_IMAGE_TAG}
+    platform: linux/amd64
+    container_name: chainlink
+    user: "0:0"   
+    depends_on:
+      - postgres
+    ports:
+      - "6688:6688"
+    volumes:
+      - cl_data:/home/chainlink/.chainlink
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    entrypoint:
+      - /bin/sh
+      - -lc
+      - |
+          set -e
+          mkdir -p /home/chainlink/.chainlink
+
+          cat > /home/chainlink/.chainlink/config.toml <<EOF
+          [Log]
+          Level = 'warn'
+
+          [WebServer]
+          AllowOrigins = '*'
+          SecureCookies = false
+
+          [WebServer.TLS]
+          HTTPSPort = 0
+
+          [[EVM]]
+          ChainID = '11155111'
+
+          [[EVM.Nodes]]
+          Name = 'Sepolia'
+          WSURL = '$(printf "%s" "$ETH_WS_URL")'
+          HTTPURL = '$(printf "%s" "$ETH_HTTP_URL")'
+          EOF
+
+          cat > /home/chainlink/.chainlink/secrets.toml <<EOF
+          [Password]
+          Keystore = '$(printf "%s" "$KEYSTORE_PASSWORD")'
+
+          [Database]
+          URL = 'postgresql://postgres:$(printf "%s" "$POSTGRES_PASSWORD")@postgres:5432/postgres?sslmode=disable'
+          EOF
+
+          printf "%s\n%s\n" "$CL_API_EMAIL" "$CL_API_PASSWORD" > /home/chainlink/.chainlink/.api
+
+          exec chainlink node \
+            -config /home/chainlink/.chainlink/config.toml \
+            -secrets /home/chainlink/.chainlink/secrets.toml \
+            start -a /home/chainlink/.chainlink/.api
+
+volumes:
+  cl_pg:
+  cl_data:
