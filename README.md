@@ -30,12 +30,12 @@ cd spinup-chainlink-node-docker-compose
 ```copy .env.example .env```
 
 
-Edit the following values:
+Edit the following values in the .env file:
 
-```
+
 ETH_WS_URL=
 ETH_HTTP_URL=
-```
+
 
 Save and close the file.
 
