@@ -20,7 +20,7 @@ Both commands must return version numbers.
 ## Step 1 – Clone Repository
 
 ```
-git clone <YOUR_REPO_URL>
+git clone git@github.com:hyc0812/spinup-chainlink-node-docker-compose.git
 cd spinup-chainlink-node-docker-compose
 
 ```
