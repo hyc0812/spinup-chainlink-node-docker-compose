@@ -25,7 +25,7 @@ cd spinup-chainlink-node-docker-compose
 
 ```
 
-open VSCode
+Open the VSCode IDE
 
 ```
 code .
