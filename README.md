@@ -25,6 +25,12 @@ cd spinup-chainlink-node-docker-compose
 
 ```
 
+open VSCode
+
+```
+code .
+```
+
 ## Step 2 – Create Environment File
 
 ```
