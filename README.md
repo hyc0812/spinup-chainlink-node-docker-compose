@@ -38,7 +38,7 @@ cp .env.example .env
 ```
 
 
-Edit the following values in the .env file:
+Edit the following values in the .env file from your Ethereum Client app (Alchemy, Infura...):
 
 
 ETH_WS_URL=
